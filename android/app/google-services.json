@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "190802962865",
+    "project_id": "flutter-expert-project-2eae5",
+    "storage_bucket": "flutter-expert-project-2eae5.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:190802962865:android:3e64ceb1ec1da658003590",
+        "android_client_info": {
+          "package_name": "com.dicoding.ditonton"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADcCMiP3PuofucKw6eYI9zHEcTNiNsQrQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

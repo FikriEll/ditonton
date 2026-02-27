@@ -1,0 +1,18 @@
+{
+  "results": [
+    {
+      "backdrop_path": "/path.jpg",
+      "genre_ids": [10765],
+      "id": 102,
+      "original_name": "Search Result",
+      "overview": "Overview",
+      "popularity": 7.0,
+      "poster_path": "/path.jpg",
+      "first_air_date": "2021-09-19",
+      "name": "Search Result",
+      "vote_average": 7.0,
+      "vote_count": 70,
+      "origin_country": ["US"]
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "backdrop_path": "/path.jpg",
+  "first_air_date": "2021-09-17",
+  "genres": [
+    {
+      "id": 1,
+      "name": "Action"
+    }
+  ],
+  "id": 100,
+  "name": "TV Title",
+  "number_of_episodes": 10,
+  "number_of_seasons": 1,
+  "overview": "Overview",
+  "poster_path": "/path.jpg",
+  "vote_average": 8.3,
+  "vote_count": 100,
+  "seasons": [
+    {
+      "id": 1001,
+      "name": "Season 1",
+      "overview": "Season Overview",
+      "episode_count": 10,
+      "poster_path": "/path.jpg",
+      "season_number": 1,
+      "air_date": "2021-09-17"
+    }
+  ],
+  "episode_run_time": [50]
+}
