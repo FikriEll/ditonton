@@ -4,6 +4,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
+import 'package:ditonton/firebase_options.dart';
 
 class FirebaseService {
   static FirebaseAnalytics? analytics;
@@ -11,21 +12,17 @@ class FirebaseService {
 
   static Future<void> initialize() async {
     try {
-      final options = _firebaseOptionsFromEnvironment();
-      if (options == null) {
-        if (kDebugMode) {
-          debugPrint(
-            'Firebase init skipped: missing --dart-define Firebase config.',
-          );
-        }
-        return;
+      if (Firebase.apps.isEmpty) {
+        final options =
+            _firebaseOptionsFromEnvironment() ??
+            DefaultFirebaseOptions.currentPlatform;
+        await Firebase.initializeApp(options: options);
       }
-
-      await Firebase.initializeApp(options: options);
 
       analytics = FirebaseAnalytics.instance;
       analyticsObserver = FirebaseAnalyticsObserver(analytics: analytics!);
 
+      await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
       FlutterError.onError =
           FirebaseCrashlytics.instance.recordFlutterFatalError;
       PlatformDispatcher.instance.onError = (error, stack) {
@@ -49,11 +46,18 @@ class FirebaseService {
         .recordError(error, stackTrace, fatal: false);
   }
 
+  static Future<void> logEvent(
+    String name, {
+    Map<String, Object>? parameters,
+  }) async {
+    await analytics?.logEvent(name: name, parameters: parameters);
+  }
+
   static FirebaseOptions? _firebaseOptionsFromEnvironment() {
     const apiKey = String.fromEnvironment('FIREBASE_API_KEY');
     const appId = String.fromEnvironment('FIREBASE_APP_ID');
     const messagingSenderId =
-        const String.fromEnvironment('FIREBASE_MESSAGING_SENDER_ID');
+        String.fromEnvironment('FIREBASE_MESSAGING_SENDER_ID');
     const projectId = String.fromEnvironment('FIREBASE_PROJECT_ID');
 
     if (apiKey.isEmpty ||
@@ -63,14 +67,13 @@ class FirebaseService {
       return null;
     }
 
-    const storageBucket =
-        const String.fromEnvironment('FIREBASE_STORAGE_BUCKET');
+    const storageBucket = String.fromEnvironment('FIREBASE_STORAGE_BUCKET');
     const iosBundleId = String.fromEnvironment('FIREBASE_IOS_BUNDLE_ID');
     const androidClientId =
-        const String.fromEnvironment('FIREBASE_ANDROID_CLIENT_ID');
+        String.fromEnvironment('FIREBASE_ANDROID_CLIENT_ID');
     const iosClientId = String.fromEnvironment('FIREBASE_IOS_CLIENT_ID');
     const iosGoogleAppId =
-        const String.fromEnvironment('FIREBASE_IOS_GOOGLE_APP_ID');
+        String.fromEnvironment('FIREBASE_IOS_GOOGLE_APP_ID');
     const measurementId = String.fromEnvironment('FIREBASE_MEASUREMENT_ID');
 
     if (kIsWeb) {

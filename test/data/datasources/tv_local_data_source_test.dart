@@ -1,7 +1,5 @@
 import 'package:ditonton/common/exception.dart';
-import 'package:ditonton/data/datasources/db/database_helper.dart';
 import 'package:ditonton/data/datasources/tv_local_data_source.dart';
-import 'package:ditonton/data/models/tv_table.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 

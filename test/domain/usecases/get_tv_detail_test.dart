@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:ditonton/domain/entities/tv_detail.dart';
 import 'package:ditonton/domain/usecases/get_tv_detail.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';

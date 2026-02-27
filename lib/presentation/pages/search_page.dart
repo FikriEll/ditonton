@@ -1,3 +1,4 @@
+import 'package:ditonton/common/services/firebase_service.dart';
 import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/presentation/bloc/movies/movie_search_cubit.dart';
@@ -21,6 +22,12 @@ class SearchPage extends StatelessWidget {
             TextField(
               onSubmitted: (query) {
                 context.read<MovieSearchCubit>().fetchMovieSearch(query);
+                FirebaseService.logEvent(
+                  'movie_search',
+                  parameters: {
+                    'query_length': query.length,
+                  },
+                );
               },
               decoration: InputDecoration(
                 hintText: 'Search title',

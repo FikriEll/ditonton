@@ -1,1 +1,0 @@
-genhtml coverage/test.info -o coverage --no-function-coverage --prefix /Users/fikriel/Documents/Project/a199-flutter-expert-project-main

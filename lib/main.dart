@@ -35,14 +35,42 @@ import 'package:ditonton/injection.dart' as di;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await di.init();
+
+  Object? startupError;
+  try {
+    await di.init();
+  } catch (error) {
+    startupError = error;
+  }
+
   await FirebaseService.initialize();
-  runApp(MyApp());
+  runApp(MyApp(startupError: startupError));
 }
 
 class MyApp extends StatelessWidget {
+  final Object? startupError;
+
+  const MyApp({Key? key, this.startupError}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+    if (startupError != null) {
+      return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
+          body: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: Text(
+                'App failed to start.\n$startupError',
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => di.locator<MovieListCubit>()),

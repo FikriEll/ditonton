@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ditonton/common/constants.dart';
+import 'package:ditonton/common/services/firebase_service.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/domain/entities/genre.dart';
 import 'package:ditonton/domain/entities/tv.dart';
@@ -109,6 +110,19 @@ class DetailContent extends StatelessWidget {
                                 }
 
                                 final message = cubit.state.watchlistMessage;
+                                FirebaseService.logEvent(
+                                  'tv_watchlist_toggle',
+                                  parameters: {
+                                    'tv_id': tv.id,
+                                    'added': !isAddedWatchlist,
+                                    'success': message ==
+                                            TvDetailCubit
+                                                .watchlistAddSuccessMessage ||
+                                        message ==
+                                            TvDetailCubit
+                                                .watchlistRemoveSuccessMessage,
+                                  },
+                                );
                                 if (message ==
                                         TvDetailCubit
                                             .watchlistAddSuccessMessage ||

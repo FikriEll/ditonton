@@ -1,3 +1,4 @@
+import 'package:ditonton/common/services/firebase_service.dart';
 import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/presentation/bloc/tv_series/tv_search_cubit.dart';
@@ -25,6 +26,12 @@ class SearchTvPage extends StatelessWidget {
             TextField(
               onSubmitted: (query) {
                 context.read<TvSearchCubit>().fetchTvSearch(query);
+                FirebaseService.logEvent(
+                  'tv_search',
+                  parameters: {
+                    'query_length': query.length,
+                  },
+                );
               },
               decoration: const InputDecoration(
                 hintText: 'Search title',
